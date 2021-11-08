@@ -6,6 +6,21 @@ const limparElementos = (elemento) => {
     }
 }
 
+const limparMensagem = (elemento) =>{
+	elemento.removeChild(elemento.lastChild);
+}
+
+const mensagemErro = () => {
+	const container = document.querySelector(".container-galeria");
+    const novoTexto= document.createElement("p");
+	novoTexto.classList.add("mensagem");
+	novoTexto.innerHTML = 
+	`
+	Tente pesquisar por dança, música, flores, bicicleta, cidade...
+	`
+	 container.appendChild(novoTexto);	
+}
+
 
 const criarItem = (urlImagem) => {
     const container = document.querySelector(".container-galeria")
@@ -44,55 +59,46 @@ const criarSlide = (urlImagem, indice, array) => {
         <a href="#${idProximo}" class="navegacao proximo"> &#187; </a>
     </div>
     `
-    container.appendChild(novaDiv)
+    container.appendChild(novaDiv);
 }
 
-const mensagemErro = () => {
-	const container = document.querySelector("#banner");
-    const novoTexto= document.createElement("p");
-	novoTexto.classList.add("mensagem");
-	novoTexto.innerHTML = 
-	`
-	Não encontramos imagens, tente pesquisar por dança, música, flores, bicicleta, cidade...
-	`
-	 container.appendChild(novoTexto);
-	
-}
 
-var status = 'false';
-
-
-const pesquisarImagens = async (evento) =>{
+const pesquisar = async (evento) =>{
 	const chave_api = '24207124-0f0c23103cb7bdff6b003febe';
-	if(evento.key === "Enter"){
-		const foto = evento.target.value;
-		const url = "https://pixabay.com/api/?key="+chave_api+"&q="+foto;
+	const per_page = '200';
+	const safesearch = 'true'
+	limparMensagem(document.querySelector(".container-galeria")); 
+	if( evento.key === "Enter" || evento.type === "click"){
+		const textInput = document.getElementById('barra-pesquisa').value;
+		const url = "https://pixabay.com/api/?key="+chave_api+"&q="+textInput+"&per_page="+per_page+"lang=pt"+"&safesearch="+safesearch;
 		const imagensResponse = await fetch(url);
         const imagens = await imagensResponse.json();
-		console.log(imagens);
-		limparElementos(document.querySelector(".container-galeria"));
-        limparElementos(document.querySelector(".slide-container"));
 		
-		if(imagens.total == 0 && status == 'false'){
+		limparElementos(document.querySelector(".container-galeria"));
+		limparElementos(document.querySelector(".slide-container"));
+		 
+		
+		if(imagens.total == 0){
 			mensagemErro();
-			status = 'true';
 		} else {
 			imagens.hits.forEach(criarItem);
-			imagens.hits.forEach(criarSlide);
+			imagens.hits.forEach(criarSlide);  
 		}
 	} else {
-		const url = "https://pixabay.com/api/?key="+chave_api;
+		const chave_api = '24207124-0f0c23103cb7bdff6b003febe';
+		const url = "https://pixabay.com/api/?key="+chave_api+"&per_page="+ per_page+"lang=pt"+"&safesearch="+safesearch;
 		const imagensResponse = await fetch(url);
 		const imagens = await imagensResponse.json();
 		imagens.hits.forEach(criarItem);
 		imagens.hits.forEach(criarSlide);
 	}
 }
-//captando o "enter" na barra de pesquisa
-document.querySelector(".barra-pesquisa").addEventListener('keypress', pesquisarImagens);
-
-//document.getElementById.addEventListener('btn-pesquisa').addEventListener("click", pesquisarImagens);
 
 //carregando as imagens para carregar quando a pagina for carregada
-document.addEventListener("DOMContentLoaded", pesquisarImagens)
+document.addEventListener("DOMContentLoaded", pesquisar);
 
+//carregando as imagens atrvés do enter na barra de pesquisa
+document.querySelector("#barra-pesquisa").addEventListener('keypress', pesquisar);
+
+//carregando as imagens através da lupa de pesqusa (button)
+document.getElementById("btn-pesquisa").addEventListener("click", pesquisar);
