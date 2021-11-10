@@ -36,33 +36,6 @@ const criarItem = (urlImagem) => {
 	 container.appendChild(novoLink);
 }
 
-//criando uma galeria de slides
-//const criarSlide = (urlImagem, indice, array) => {
-//    const container = document.querySelector(".slide-container")
-//    const novaDiv = document.createElement("div")
-//	novaDiv.classList.add("slide")
-//   	const pegarId = urlImagem.id;
-//	novaDiv.id = pegarId;
-//	const foto = urlImagem.webformatURL;
-//
-//    const indiceAnterior = indice <= 0 ? array.length -1 : indice -1
-//    const idAnterior = array[indiceAnterior].id
-//
-//    const indiceProximo = indice >= array.length -1 ? 0 : indice +1
-//    const idProximo = array[indiceProximo].id
-//    novaDiv.innerHTML = 
-//    `
-//    <div class="imagem-container">
-//        <a href="#" class="fechar"> &#128473; </a>
-//        <a href="#${idAnterior}" class="navegacao anterior"> &#171; </a>
-//        <img src="${ urlImagem.webformatURL}"> 
-//        <a href="#${idProximo}" class="navegacao proximo"> &#187; </a>
-//    </div>
-//    `
-//    container.appendChild(novaDiv);
-//}
-
-
 const pesquisar = async (evento) =>{
 	const chave_api = '24207124-0f0c23103cb7bdff6b003febe';
 	const per_page = '200';
@@ -75,13 +48,11 @@ const pesquisar = async (evento) =>{
         const imagens = await imagensResponse.json();
 		
 		limparElementos(document.querySelector(".container-galeria"));
-//		limparElementos(document.querySelector(".slide-container"));
 		 
 		if(imagens.total == 0){
 			mensagemErro();
 		} else {
 			imagens.hits.forEach(criarItem);
-//			imagens.hits.forEach(criarSlide);  
 		}
 	} else {
 		const chave_api = '24207124-0f0c23103cb7bdff6b003febe';
@@ -89,7 +60,6 @@ const pesquisar = async (evento) =>{
 		const imagensResponse = await fetch(url);
 		const imagens = await imagensResponse.json();
 		imagens.hits.forEach(criarItem);
-//		imagens.hits.forEach(criarSlide);
 	}
 }
 
