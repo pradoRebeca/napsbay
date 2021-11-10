@@ -7,7 +7,7 @@ const limparElementos = (elemento) => {
 }
 
 const limparMensagem = (elemento) =>{
-	elemento.removeChild(elemento.lastChild);
+	elemento.removeChild;
 }
 
 const mensagemErro = () => {
@@ -40,13 +40,14 @@ const pesquisar = async (evento) =>{
 	const chave_api = '24207124-0f0c23103cb7bdff6b003febe';
 	const per_page = '200';
 	const safesearch = 'true'
-	limparMensagem(document.querySelector(".container-galeria")); 
+	limparMensagem(document.querySelector(".container-galeria"));
+	
 	if( evento.key === "Enter" || evento.type === "click"){
 		const textInput = document.getElementById('barra-pesquisa').value;
-		const url = "https://pixabay.com/api/?key="+chave_api+"&q="+textInput+"&per_page="+per_page+"lang=pt"+"&safesearch="+safesearch;
+		const url = "https://pixabay.com/api/?key="+chave_api+"&q="+textInput+"&per_page="+per_page+"&safesearch="+safesearch;
 		const imagensResponse = await fetch(url);
         const imagens = await imagensResponse.json();
-		
+		console.log(imagens)
 		limparElementos(document.querySelector(".container-galeria"));
 		 
 		if(imagens.total == 0){
@@ -56,7 +57,7 @@ const pesquisar = async (evento) =>{
 		}
 	} else {
 		const chave_api = '24207124-0f0c23103cb7bdff6b003febe';
-		const url = "https://pixabay.com/api/?key="+chave_api+"&per_page="+ per_page+"lang=pt"+"&safesearch="+safesearch;
+		const url = "https://pixabay.com/api/?key="+chave_api+"&per_page="+ per_page+"&safesearch="+safesearch;
 		const imagensResponse = await fetch(url);
 		const imagens = await imagensResponse.json();
 		imagens.hits.forEach(criarItem);

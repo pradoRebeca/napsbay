@@ -62,6 +62,10 @@ footer{
 	background-color: inherit;
 }
 
+#btn-pesquisa:hover{
+	cursor:pointer;
+}
+
 main{
 	width: 100vw;
 	padding: 0px 20px 0px 20px;
@@ -141,84 +145,5 @@ main{
 .galeria-imagens{
 	width: 100%;
 	height: 100%;
-/*	position: relative;*/
 }
 
-
-
-
-
-/*slide*/
-.slide{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -999;
-    opacity: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    transition: opacity .5s linear;
-}
-
-.slide:target{
-    z-index: 999;
-    opacity: 1;
-	background-color: rgba(0,0,0,0.8)
-}
-
-.imagem-container{
-    height: 60%;
-    max-width: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.imagem-container img{
-    height: 100%;
-    width: 100%;
-}
-.slide .fechar{
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 40px;
-    height: 40px;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all .3s inline;
-    text-decoration: none;
-    transition: all .3s linear;
-	border-radius: 50px;
-}
-
-.slide .fechar:hover{
-    background-color: tomato;
-}
-
-.slide .navegacao{
-    position: absolute;
-    display: flex;
-    width: 40px;
-    height: 40px;
-    color: white;
-    background-color:rgba(0,0,0,0.4);
-    justify-content: center;
-    align-items: center;
-	border-radius: 50px;
-	font-weight: bold;
-}
-
-.slide .anterior {
-    left: 0;
-}
-
-.slide .proximo{
-    right: 0;
-}
